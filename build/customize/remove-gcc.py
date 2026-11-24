@@ -64,7 +64,7 @@ def main():
     for i in files_to_save:
         sh('mv ${WORLD_DESTDIR}/${i} ${WORLD_DESTDIR}/${i}.bak')
 
-    chroot('${WORLD_DESTDIR}', 'pkg delete -y -f gcc\* || true')
+    chroot('${WORLD_DESTDIR}', r'pkg delete -y -f gcc\* || true')
 
     for i in files_to_save:
         sh('mv ${WORLD_DESTDIR}/${i}.bak ${WORLD_DESTDIR}/${i}')

@@ -107,7 +107,7 @@ def main(argv):
             except exceptions.ResourceAttrError:
                 continue
             if not skip:
-                entrytext = re.sub('freenas\s*only:?', '', entrytext, flags=re.IGNORECASE).strip()
+                entrytext = re.sub(r'freenas\s*only:?', '', entrytext, flags=re.IGNORECASE).strip()
                 if include_tracker:
                     fmt = "* {0}\t{1}\t{2}"
                     entrytext = re.sub('\n', '\n\t\t', entrytext)

@@ -28,7 +28,8 @@
 
 import os
 import subprocess
-import imp
+import importlib.util
+import sys
 import threading
 import time
 from utils import sh, sh_str, sh_spawn, e, glob, objdir, info, debug, error, load_file, import_function, on_abort, appendfile
@@ -165,7 +166,10 @@ def main():
         testname = os.path.splitext(os.path.basename(t))[0]
         logfile = objdir('logs/test-${testname}.log')
         info('Running test {0} (logfile {1})', testname, logfile)
-        mod = imp.load_source(testname, t)
+        spec = importlib.util.spec_from_file_location(testname, t)
+        mod = importlib.util.module_from_spec(spec)
+        sys.modules[testname] = mod
+        spec.loader.exec_module(mod)
         success, reason = mod.run(lambda x: ssh(x, logfile))
 
         # Give VM a while if panic happened

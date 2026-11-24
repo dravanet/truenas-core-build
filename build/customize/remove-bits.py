@@ -59,20 +59,20 @@ def main(destdir):
         return 0
 
     # Kill static libraries
-    sh("find ${destdir}/usr/local \( -name '*.a' -or -name '*.la' \) -delete")
+    sh(r"find ${destdir}/usr/local \( -name '*.a' -or -name '*.la' \) -delete")
     sh("rm -rf ${destdir}/usr/lib/*.a")
 
     # Kill info
     sh('rm -rf ${destdir}/usr/local/info')
 
     # Kill .pyo files
-    sh("find ${destdir}/usr/local \( -name '*.pyo' \) -delete")
+    sh(r"find ${destdir}/usr/local \( -name '*.pyo' \) -delete")
 
     # We don't need python test in the image
     sh('rm -rf ${destdir}/usr/local/lib/python3.7/test')
 
     # Kill includes
-    sh("find ${destdir}/usr/local/include \( \! -name 'pyconfig.h' \) -type f -delete")
+    sh(r"find ${destdir}/usr/local/include \( \! -name 'pyconfig.h' \) -type f -delete")
 
 if __name__ == '__main__':
     main(sys.argv[1])
